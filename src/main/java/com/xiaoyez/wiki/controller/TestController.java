@@ -1,5 +1,6 @@
 package com.xiaoyez.wiki.controller;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -8,6 +9,12 @@ import org.springframework.web.bind.annotation.RestController;
 //一般用来返回字符串
 @RestController
 public class TestController {
+
+    // Spring Boot扫描到@Value就会去找test.hello的配置项
+    // :后面是默认的配置值
+    @Value("${test.hello:TEST}")
+    private String testHello;
+
     /*
     * GET, POST, PUT, DELETE
     *
@@ -22,7 +29,7 @@ public class TestController {
     * */
     @GetMapping("/hello")
     public String hello(){
-        return "Hello World!";
+        return "Hello World!" + testHello;
     }
 
     @PostMapping ("/hello/post")
